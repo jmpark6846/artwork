@@ -5,9 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-restframework = "*"
+zappa = "*"
+django-s3-sqlite = "*"
+django-s3-storage = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"
