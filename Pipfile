@@ -9,6 +9,11 @@ zappa = "*"
 django-s3-sqlite = "*"
 django-s3-storage = "*"
 python-dotenv = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+django-allauth = "*"
+djangorestframework-simplejwt = "*"
+dj-rest-auth = "*"
 
 [dev-packages]
 
