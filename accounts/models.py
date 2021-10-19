@@ -46,26 +46,3 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-
-
-# def user_directory_path(instance, filename):
-#     return 'profile/{0}/{1}'.format(instance.user.email, filename)
-
-
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(User,
-#                                 on_delete=models.CASCADE,
-#                                 related_name='profile', )
-#     file = models.ImageField(upload_to=user_directory_path, blank=False, null=False)
-#
-#
-# def add_profile_and_group(sender, instance, created, **kwargs):
-#     if created:
-#         profile = UserProfile(user=instance)
-#         profile.save()
-#
-#         group = Group.objects.get(name='project_user')
-#         instance.groups.add(group)
-#
-#
-# post_save.connect(add_profile_and_group, sender=User)

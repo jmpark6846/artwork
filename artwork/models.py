@@ -9,9 +9,9 @@ def artwork_directory_path(instance, filename):
 class Artwork(models.Model):
     title = models.CharField(max_length=120)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='artworks')
-    tags = models.ManyToManyField('issue.Tag')
+    tags = models.ManyToManyField('artwork.Tag')
     description = models.TextField()
-    file = models.FileField(upload_to=artwork_directory_path, blank=True, null=True)
+    file = models.ImageField(upload_to=artwork_directory_path, blank=True, null=True)
 
 
 class Tag(models.Model):

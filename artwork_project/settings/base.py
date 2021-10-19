@@ -28,10 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = [
-    'bnemc2hgo5.execute-api.ap-northeast-2.amazonaws.com'
+    'localhost',
+    'a21r3kv702.execute-api.ap-northeast-2.amazonaws.com'
 ]
 
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     "django_s3_sqlite",
     "django_s3_storage",
     'rest_framework',
@@ -53,7 +55,8 @@ INSTALLED_APPS = [
 
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    'accounts'
+    'accounts',
+    'artwork',
 ]
 
 MIDDLEWARE = [
@@ -92,14 +95,7 @@ WSGI_APPLICATION = 'artwork_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        "ENGINE": "django_s3_sqlite",
-        "NAME": "sqlite.db",
-        "BUCKET": "artwork-db-bucket",
 
-    }
-}
 
 
 # Password validation
@@ -155,6 +151,7 @@ STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 AWS_S3_MAX_AGE_SECONDS_STATIC = "94608000"
 
 
+SITE_ID = 1
 
 #cors
 CORS_ALLOWED_ORIGINS = [
@@ -199,8 +196,10 @@ CORS_EXPOSE_HEADERS = [
     'Content-Disposition'
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-
+DATABASES = {
+    'default': {
+        "ENGINE": "django_s3_sqlite",
+        "NAME": "sqlite.db",
+        "BUCKET": "artwork-db-bucket",
+    }
+}
