@@ -18,7 +18,7 @@ from pathlib import Path
 
 load_dotenv(find_dotenv())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # DEBUG = True
 
 ALLOWED_HOSTS = [
+    '0.0.0.0',
     'localhost',
     'a21r3kv702.execute-api.ap-northeast-2.amazonaws.com'
 ]
@@ -49,12 +50,15 @@ INSTALLED_APPS = [
     "django_s3_sqlite",
     "django_s3_storage",
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+
     "corsheaders",
     'allauth',
     'allauth.account',
 
     'dj_rest_auth',
     'dj_rest_auth.registration',
+
     'accounts',
     'artwork',
 ]
@@ -153,12 +157,16 @@ AWS_S3_MAX_AGE_SECONDS_STATIC = "94608000"
 
 SITE_ID = 1
 
-#cors
+#cors, need both
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
 ]
+CORS_ALLOW_CREDENTIALS = True
+
+
 AUTH_USER_MODEL = 'accounts.User'
 REST_FRAMEWORK = {
+    'UPLOADED_FILES_USE_URL': True,
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         # "rest_framework.permissions.DjangoModelPermissions",
@@ -167,13 +175,25 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ),
 }
+
+
 REST_USE_JWT = True
+
 # django-allauth
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # simple_jwt
 SIMPLE_JWT = {
@@ -188,6 +208,12 @@ REST_AUTH_SERIALIZERS = {
 }
 JWT_AUTH_COOKIE = 'access'
 JWT_AUTH_REFRESH_COOKIE = 'refresh'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:5000'
+]
+
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'Content-Disposition'
 ]
@@ -195,11 +221,3 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 CORS_EXPOSE_HEADERS = [
     'Content-Disposition'
 ]
-
-DATABASES = {
-    'default': {
-        "ENGINE": "django_s3_sqlite",
-        "NAME": "sqlite.db",
-        "BUCKET": "artwork-db-bucket",
-    }
-}

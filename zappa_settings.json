@@ -1,11 +1,21 @@
 {
     "dev": {
         "aws_region": "ap-northeast-2",
-        "django_settings": "artwork_project.settings.production",
+        "django_settings": "artwork_project.settings.dev",
         "profile_name": "zappa",
         "project_name": "task",
         "runtime": "python3.8",
         "s3_bucket": "zappa-xgwgyli6z",
+        "use_precompiled_packages": false
+    },
+
+    "prod": {
+        "aws_region": "ap-northeast-2",
+        "django_settings": "artwork_project.settings.production",
+        "profile_name": "zappa",
+        "project_name": "task",
+        "runtime": "python3.8",
+        "s3_bucket": "artwork-prod-faewrqi1p",
         "use_precompiled_packages": false
     }
 }

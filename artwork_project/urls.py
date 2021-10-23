@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
+import artwork.urls
 from accounts.views import LogoutView
 
 urlpatterns = [
@@ -26,7 +26,7 @@ urlpatterns = [
     path('allauth/', include('allauth.urls')),
     path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/registration/', include('dj_rest_auth.registration.urls')),
-
+    path('', include(artwork.urls))
 ]
 
 if settings.DEBUG:

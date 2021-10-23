@@ -1,12 +1,11 @@
 from .base import *
-print('dev settings loaded')
+print('local settings loaded')
 DEBUG = True
 
 DATABASES = {
     'default': {
-        "ENGINE": "django_s3_sqlite",
-        "NAME": "sqlite.db",
-        "BUCKET": "artwork-db-bucket",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3"
     }
 }
 
